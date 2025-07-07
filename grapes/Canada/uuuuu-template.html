@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>À qui s'adresse le programme ? - Canada</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="index,follow">
+  <meta name="generator" content="GrapesJS Studio">
+  <meta name="description" content="Découvrez à qui s'adresse le programme Recrutement Canada..."/>
+  <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" />
+  <style>
+    body, html { margin: 0; height: 100%; }
+    #gjs { height: 90vh; }
+    button {
+      padding: 12px;
+      font-size: 16px;
+      margin: 20px auto;
+      display: block;
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="gjs">
+    <main class="main-section">
+      <h1 class="title">À qui s'adresse le programme ?</h1>
+      <div class="subtitle">
+        Le programme <strong>Canada</strong> est destiné aux personnes qualifiées dans différents domaines.
+      </div>
+      <section class="person-orbit">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="orbit-ring">
+          <circle cx="50" cy="50" r="48"></circle>
+        </svg>
+        <img src="https://48496705.fs1.hubspotusercontent-na1.net/hubfs/48496705/66dc8d32dc00f_visuelconfrence.png" alt="Coach professionnelle" class="person-img"/>
+        <div class="bubble">
+          <div class="bubble-title">📊 Administration</div>
+          <ul class="bubble-list">
+            <li>Gestionnaire</li>
+            <li>RH</li>
+            <li>Financier</li>
+          </ul>
+        </div>
+      </section>
+      <button class="cta-btn">Je participe</button>
+    </main>
+  </div>
+
+  <button onclick="sendToN8N()">Enregistrer les modifications</button>
+
+  <script src="https://unpkg.com/grapesjs"></script>
+  <script src="https://unpkg.com/grapesjs-preset-webpage"></script>
+  <script>
+    const editor = grapesjs.init({
+      container: '#gjs',
+      height: '100%',
+      fromElement: true,
+      storageManager: false,
+      plugins: ['gjs-preset-webpage'],
+    });
+
+    function sendToN8N() {
+      const html = editor.getHtml();
+      const css = editor.getCss();
+
+      fetch("https://n8n.srv787725.hstgr.cloud/webhook-test/html-save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          html,
+          css,
+          client: "Canada",
+          fileName: "uuuuu-template.html"
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          alert("Modifications enregistrées avec succès !");
+        } else {
+          alert("Erreur lors de l’enregistrement !");
+        }
+      })
+      .catch(err => alert("Erreur de connexion : " + err.message));
+    }
+  </script>
+</body>
+</html>
