@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>À qui s'adresse le programme ? - John</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="index,follow">
+  <meta name="generator" content="GrapesJS Studio">
+  <meta name="description" content="Découvrez à qui s'adresse le programme Recrutement Canada..."/>
+  <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" />
+  <style>
+    body, html { margin: 0; height: 100%; }
+    #gjs { height: 90vh; }
+    button {
+      padding: 12px;
+      font-size: 16px;
+      margin: 20px auto;
+      display: block;
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+   <h2>Ordered List Arrow Cards</h2>
+  <div class="arrow-list">
+    <div class="arrow-card" style="--color:#ff4c61;">
+      <span class="arrow-number">01</span>
+      <div class="arrow-content">
+        <div>
+          <div class="arrow-title">Lorem Ipsum</div>
+          <div class="arrow-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, voluptatem.</div>
+        </div>
+      </div>
+    </div>
+    <div class="arrow-card" style="--color:#22cfcf;">
+      <span class="arrow-number">02</span>
+      <div class="arrow-content">
+        <div>
+          <div class="arrow-title">Lorem Ipsum</div>
+          <div class="arrow-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, voluptatem.</div>
+        </div>
+      </div>
+    </div>
+    <div class="arrow-card" style="--color:#1a2a4c;">
+      <span class="arrow-number">03</span>
+      <div class="arrow-content">
+        <div>
+          <div class="arrow-title">Lorem Ipsum</div>
+          <div class="arrow-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, voluptatem.</div>
+        </div>
+      </div>
+    </div>
+    <div class="arrow-card" style="--color:#ff8c1a;">
+      <span class="arrow-number">04</span>
+      <div class="arrow-content">
+        <div>
+          <div class="arrow-title">Lorem Ipsum</div>
+          <div class="arrow-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, voluptatem.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <button onclick="sendToN8N()">Enregistrer les modifications</button>
+
+  <script src="https://unpkg.com/grapesjs"></script>
+  <script src="https://unpkg.com/grapesjs-preset-webpage"></script>
+  <script>
+    const editor = grapesjs.init({
+      container: '#gjs',
+      height: '100%',
+      fromElement: true,
+      storageManager: false,
+      plugins: ['gjs-preset-webpage'],
+    });
+
+    function sendToN8N() {
+      const html = editor.getHtml();
+      const css = editor.getCss();
+
+      fetch("https://n8n.srv787725.hstgr.cloud/webhook-test/html-save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          html,
+          css,
+          client: "John",
+          fileName: "Ordere.html"
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          alert("Modifications enregistrées avec succès !");
+        } else {
+          alert("Erreur lors de l’enregistrement !");
+        }
+      })
+      .catch(err => alert("Erreur de connexion : " + err.message));
+    }
+  </script>
+</body>
+</html>
