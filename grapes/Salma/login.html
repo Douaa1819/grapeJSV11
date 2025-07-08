@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Programme - Salma</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="index,follow">
+  <meta name="generator" content="GrapesJS Studio">
+  <meta name="description" content="Programme destiné à Salma"/>
+  <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    #gjs {
+      height: 100vh;
+    }
+    .gjs-custom-btn {
+      padding: 12px;
+      font-size: 16px;
+      margin: 10px;
+      display: inline-block;
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="gjs">
+    <main class="main-section" style="padding: 40px; background: #f7f7fa;">
+      <h1 class="title" style="text-align:center; font-size:2.3rem; font-weight:900; color:#1a2340;">À qui s'adresse le programme ?</h1>
+      <div class="subtitle" style="text-align:center; max-width:700px; margin: 20px auto; font-size:1.2rem; color:#333;">
+        Le programme <strong>Salma</strong> est destiné aux personnes ayant une expertise dans les domaines suivants :
+      </div>
+
+      <div style="text-align:center;">
+        <img src="https://48496705.fs1.hubspotusercontent-na1.net/hubfs/48496705/66dc8d32dc00f_visuelconfrence.png" alt="Illustration programme" style="max-width:280px; border-radius:12px; margin-bottom:20px;" />
+      </div>
+
+      <div class="domaines" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+        <div style="background:#fff; border:1px solid #ddd; border-radius:8px; padding:16px; width:260px;">
+          <h3 style="margin-top:0; color:#000;">📊 Administration</h3>
+          <ul><li>Gestionnaire</li><li>RH</li><li>Financier</li></ul>
+        </div>
+        <div style="background:#fff; border:1px solid #ddd; border-radius:8px; padding:16px; width:260px;">
+          <h3 style="margin-top:0; color:#000;">🏭 Industrie manufacturière</h3>
+          <ul><li>Opérateur</li><li>Technicien</li><li>Soudeur</li></ul>
+        </div>
+        <div style="background:#fff; border:1px solid #ddd; border-radius:8px; padding:16px; width:260px;">
+          <h3 style="margin-top:0; color:#000;">🛠️ Ingénierie</h3>
+          <ul><li>Ingénieur mécanique</li><li>Structure</li><li>Électrique</li></ul>
+        </div>
+      </div>
+
+      <button class="cta-btn" style="margin:40px auto 0; display:block; background:#FFD600; border:none; padding:1rem 2rem; font-weight:bold; border-radius:2rem; cursor:pointer;">
+        Je participe au Programme
+      </button>
+    </main>
+  </div>
+
+  <button class="gjs-custom-btn" onclick="sendToN8N()">💾 Enregistrer les modifications</button>
+
+  <script src="https://unpkg.com/grapesjs"></script>
+  <script src="https://unpkg.com/grapesjs-preset-webpage"></script>
+  <script>
+    const editor = grapesjs.init({
+      container: '#gjs',
+      height: '100%',
+      fromElement: true,
+      storageManager: false,
+      plugins: ['gjs-preset-webpage'],
+      canvas: {
+        styles: [
+          'https://unpkg.com/grapesjs/dist/css/grapes.min.css'
+        ]
+      }
+    });
+
+    function sendToN8N() {
+      const html = editor.getHtml();
+      const css = editor.getCss();
+      fetch("https://n8n.srv787725.hstgr.cloud/webhook-test/html-save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          html,
+          css,
+          client: "Salma",
+          fileName: "login.html"
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          alert("Modifications enregistrées avec succès !");
+        } else {
+          alert("Erreur lors de l’enregistrement !");
+        }
+      })
+      .catch(err => alert("Erreur de connexion : " + err.message));
+    }
+  </script>
+</body>
+</html>
