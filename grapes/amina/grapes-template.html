@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Plan d'Adoption Numérique</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plan stratégique de transformation numérique pour amina">
+  <meta name="generator" content="GrapesJS Studio" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://n8n.srv787725.hstgr.cloud/files/styles.css">
+  <style>
+    body, html { margin: 0; padding: 0; height: 100%; }
+    #gjs { height: 100vh; }
+    .gjs-custom-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      padding: 12px 20px;
+      font-size: 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+<body>
+  <div id="gjs">
+    <!-- TON CONTENU HTML SERA ICI -->
+    <main class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-badge"><i class="fas fa-sparkles"></i><span>Diagnostic IA 2026</span></div>
+            <h1 class="hero-title">Plan d'Adoption <span class="accent">Numérique</span></h1>
+            <div class="company-name" id="company-display">amina</div>
+            <p class="hero-description">Transformation digitale intelligente propulsée par l'IA</p>
+          </div>
+          <div class="hero-visual">
+            <div class="visual-orb">
+              <div class="orb-ring"></div>
+              <div class="orb-ring"></div>
+              <div class="orb-core"><i class="fas fa-rocket"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <button class="gjs-custom-btn" onclick="sendToN8N()">💾 Enregistrer les modifications</button>
+
+  <script src="https://unpkg.com/grapesjs"></script>
+  <script src="https://unpkg.com/grapesjs-preset-webpage"></script>
+  <script>
+    const editor = grapesjs.init({
+      container: '#gjs',
+      height: '100%',
+      fromElement: true,
+      storageManager: false,
+      plugins: ['gjs-preset-webpage'],
+      canvas: {
+        styles: [
+          "https://n8n.srv787725.hstgr.cloud/files/styles.css",
+          "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+          "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        ]
+      }
+    });
+
+    function sendToN8N() {
+      const html = editor.getHtml();
+      const css = editor.getCss();
+      fetch("https://n8n.srv787725.hstgr.cloud/webhook-test/html-save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          html,
+          css,
+          client: "amina",
+          fileName: "grapes-template.html"
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          alert("Modifications enregistrées avec succès !");
+        } else {
+          alert("Erreur lors de l’enregistrement !");
+        }
+      })
+      .catch(err => alert("Erreur de connexion : " + err.message));
+    }
+  </script>
+</body>
+</html>
